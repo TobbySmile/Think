@@ -1,0 +1,24 @@
+import random
+
+# 生成一个1~100的随机数
+target = random.randint(1, 100)
+
+# 玩家有5次机会
+for i in range(5):
+    # 输入玩家猜测的数字
+    guess = int(input('请输入一个1~100之间的整数：'))
+
+    # 判断猜测结果
+    if guess > target:
+        print('猜测的数太大了！')
+    elif guess < target:
+        print('猜测的数太小了！')
+    else:
+        print('恭喜你，猜对了！')
+        break
+
+# 判断游戏结果
+if guess == target:
+    print('游戏胜利！')
+else:
+    print('游戏失败，正确答案是', target)
