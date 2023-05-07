@@ -1,0 +1,33 @@
+import requests
+from bs4 import BeautifulSoup
+import os
+
+# 目标网站地址
+url = 'https://www.example.com'
+
+# 发送GET请求并获取网页内容
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'html.parser')
+
+# 获取图片链接
+img_links = []
+for img in soup.find_all('img'):
+    img_url = img.get('src')
+    if img_url.startswith('http'):
+        img_links.append(img_url)
+
+# 下载图片
+for img_url in img_links:
+    response = requests.get(img_url)
+    img_name = img_url.split('/')[-1]
+    with open(img_name, 'wb') as f:
+        f.write(response.content)
+
+# 获取网页文本内容
+text = soup.get_text()
+
+# 保存文本内容
+with open('text.txt', 'w', encoding='utf-8') as f:
+    f.write(text)
+
+print('下载完成！')
