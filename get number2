@@ -1,0 +1,16 @@
+import random
+
+number = random.randint(1, 100)
+guess = None
+guesses = 0
+
+while guess != number:
+    guess = int(input("猜一个数字（1-100）："))
+    guesses += 1
+
+    if guess > number:
+        print("太大了")
+    elif guess < number:
+        print("太小了")
+    else:
+        print("猜对了！你用了 %d 次猜中了数字 %d" % (guesses, number))
