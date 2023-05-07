@@ -1,0 +1,55 @@
+// 画布大小
+var canvasWidth = 600;
+var canvasHeight = 400;
+
+// 球的半径和位置
+var ballRadius = 10;
+var ballX = canvasWidth / 2;
+var ballY = canvasHeight - ballRadius - 10;
+
+// 球的速度和方向
+var ballSpeedX = 5;
+var ballSpeedY = -5;
+
+// 绘制画布和球
+function draw() {
+    // 获取画布和上下文
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+
+    // 绘制画布
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+    // 绘制球
+    ctx.beginPath();
+    ctx.arc(ballX, ballY, ballRadius, 0, Math.PI*2, true);
+    ctx.closePath();
+    ctx.fillStyle = "#ffffff";
+    ctx.fill();
+}
+
+// 移动球
+function move() {
+    // 移动球
+    ballX += ballSpeedX;
+    ballY += ballSpeedY;
+
+    // 检测碰撞
+    if (ballX + ballRadius > canvasWidth || ballX - ballRadius < 0) {
+        ballSpeedX = -ballSpeedX;
+    }
+    if (ballY - ballRadius < 0) {
+        ballSpeedY = -ballSpeedY;
+    }
+    if (ballY + ballRadius > canvasHeight) {
+        alert("游戏结束");
+        clearInterval(intervalId);
+    }
+}
+
+// 启动动画
+var intervalId = setInterval(function() {
+    draw();
+    move();
+}, 30);
